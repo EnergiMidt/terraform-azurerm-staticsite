@@ -65,8 +65,8 @@ variable "identity" {
   description = "(Optional) An identity block as defined below which contains the Managed Service Identity information for this resource."
   type = object(
     {
-      type         = string                 # (Required) The Type of Managed Identity assigned to this Static Site resource. Possible values are `SystemAssigned`, `UserAssigned` and `SystemAssigned, UserAssigned`.
-      identity_ids = optional(list(string)) # (Optional) The Principal ID associated with this Managed Service Identity.
+      type         = string                 # (Required) Specifies the type of Managed Service Identity that should be configured on this resource. Possible values are `SystemAssigned`, `UserAssigned` and `SystemAssigned, UserAssigned` (to enable both).
+      identity_ids = optional(list(string)) # (Optional) A list of User Assigned Managed Identity IDs to be assigned to this resource.
     }
   )
 }
