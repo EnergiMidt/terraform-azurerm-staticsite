@@ -6,7 +6,7 @@ locals {
 
 resource "azurerm_static_site" "static_site" {
   name                = local.name
-  resource_group_name = var.resource_group
+  resource_group_name = var.resource_group.name
 
   # TODO: Error: failed creating Static Site: (Name "fm-ferdigmelding-test-stapp" / Resource Group "fm-ferdigmeldingen-test"): web.StaticSitesClient#CreateOrUpdateStaticSite: Failure sending request: StatusCode=400 -- Original Error: Code="LocationNotAvailableForResourceType" Message="The provided location 'norwayeast' is not available for resource type 'Microsoft.Web/staticSites'. List of available regions for the resource type is 'westus2,centralus,eastus2,westeurope,eastasia,eastasiastage'."
   # Workaround: Use westeurope as temporary solution while waiting for norwayeast being supported in the future.
