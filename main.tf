@@ -2,6 +2,7 @@ locals {
   name     = var.override_name == null ? "${var.system_name}-${lower(var.environment)}-stapp" : var.override_name
   location = var.override_location == null ? var.resource_group.location : var.override_location
 }
+
 resource "azurerm_static_site" "static_site" {
   name                = local.name
   location            = local.location
