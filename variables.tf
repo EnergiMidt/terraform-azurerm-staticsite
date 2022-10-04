@@ -1,6 +1,5 @@
 variable "environment" {
   description = "(Required) The name of the environment."
-  default     = null
   type        = string
   validation {
     condition = contains([
@@ -12,8 +11,14 @@ variable "environment" {
   }
 }
 
-variable "name" {
-  description = "(Required) Specifies the name of the storage account. Only lowercase Alphanumeric characters allowed. Changing this forces a new resource to be created. This must be unique across the entire Azure service, not just within the resource group."
+# This `name` variable is replaced by the use of `system_name` and `environment` variables.
+# variable "name" {
+#   description = "(Required) The name which should be used for this resource. Changing this forces a new resource to be created."
+#   type        = string
+# }
+
+variable "system_name" {
+  description = "(Required) The systen name which should be used for this resource. Changing this forces a new resource to be created."
   type        = string
 }
 
@@ -30,19 +35,19 @@ variable "override_location" {
 }
 
 variable "resource_group" {
-  description = "(Required) The resource group in which to create the Storage Account component."
+  description = "(Required) The resource group in which to create the resource."
   type        = any
 }
 
 # This `resource_group_name` variable is replaced by the use of `resource_group` variable.
 # variable "resource_group_name" {
-#   description = "(Required) The name of the resource group in which the Log Analytics workspace is created. Changing this forces a new resource to be created."
+#   description = "(Required) The name of the resource group where the resource should exist. Changing this forces a new resource to be created."
 #   type        = string
 # }
 
 # This `location` variable is replaced by the use of `resource_group` variable.
 # variable "location" {
-#   description = "(Required) Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created."
+#   description = "(Required) The location where the resource should exist. Changing this forces a new resource to be created."
 #   type        = string
 # }
 
