@@ -16,7 +16,7 @@ resource "azurerm_static_site" "static_site" {
 
     content {
       type         = var.identity.type
-      identity_ids = lower(var.identity.type) == "userassigned" ? local.managed_identities : null
+      identity_ids = lower(var.identity.type) == "userassigned" ? var.identity.managed_identities : null
     }
   }
 
