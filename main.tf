@@ -11,8 +11,13 @@ resource "azurerm_static_site" "static_site" {
   sku_tier = var.sku_tier
   sku_size = var.sku_size
 
-  identity {
-    type = "SystemAssigned" # (Required) Specifies the type of Managed Service Identity that should be configured on this resource. Possible values are `SystemAssigned`, `UserAssigned` and `SystemAssigned, UserAssigned` (to enable both).
+  dynamic "identity" {
+    for_each = try(var.identity, null) == null ? [] : [1]
+
+    content {
+      type         = var.identity.type
+      identity_ids = lower(var.identity.type) == "userassigned" ? local.managed_identities : null
+    }
   }
 
   tags = var.tags

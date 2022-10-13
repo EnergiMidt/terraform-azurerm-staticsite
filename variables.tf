@@ -55,12 +55,22 @@ variable "sku_tier" {
   description = "(Optional) Specifies the SKU tier of the Static Web App. Possible values are `Free` or `Standard`. Defaults to `Free`."
   type        = string
   default     = "Free"
+
+  validation {
+    condition     = contains(["Free", "Standard"], var.sku_size)
+    error_message = "Possible values are `Free` or `Standard`."
+  }
 }
 
 variable "sku_size" {
   description = "(Optional) Specifies the SKU size of the Static Web App. Possible values are `Free` or `Standard`. Defaults to `Free`."
   type        = string
   default     = "Free"
+
+  validation {
+    condition     = contains(["Free", "Standard"], var.sku_size)
+    error_message = "Possible values are `Free` or `Standard`."
+  }
 }
 
 variable "identity" {
