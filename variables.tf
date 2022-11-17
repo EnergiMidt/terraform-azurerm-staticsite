@@ -86,6 +86,12 @@ variable "identity" {
   )
 }
 
+variable "app_settings" {
+  default     = {}
+  description = "(Optional) A key value block of application settings."
+  type        = map(string)
+}
+
 variable "tags" {
   description = "(Optional) A mapping of tags to assign to the resource."
   default     = {}
