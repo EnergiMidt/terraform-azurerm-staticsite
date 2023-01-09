@@ -39,6 +39,23 @@ resource "azurerm_resource_group_template_deployment" "static_site_appsettings" 
   })
 }
 
+# Custom domain
+resource "azurerm_dns_cname_record" "static_site_cname_record" {
+  count               = var.custom_domain_name == null ? 0 : 1
+  name                = var.custom_domain_name.name
+  zone_name           = var.custom_domain_name.zone_name
+  resource_group_name = var.resource_group.name
+  ttl                 = 300
+  record              = azurerm_static_site.static_site.default_host_name
+}
+
+resource "azurerm_static_site_custom_domain" "static_site_custom_domain" {
+  count           = var.custom_domain_name == null ? 0 : 1
+  static_site_id  = azurerm_static_site.static_site.id
+  domain_name     = "${var.custom_domain_name.name}.${var.custom_domain_name.zone_name}"
+  validation_type = "cname-delegation"
+}
+
 # Generate JSON file for ARM-template
 locals {
   appSettingsTemplate = {

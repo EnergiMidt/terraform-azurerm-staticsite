@@ -108,3 +108,16 @@ variable "tags" {
   default     = {}
   type        = map(string)
 }
+
+variable "custom_domain_name" {
+  description = <<EOT
+  (Optional) A custom domain name for the static site. Example:
+
+  name      = "ferdigmelding"
+  zone_name = "tensio.no"
+  EOT
+  type = object({
+    name      = string
+    zone_name = string
+  })
+}
