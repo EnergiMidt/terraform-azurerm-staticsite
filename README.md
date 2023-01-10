@@ -44,6 +44,7 @@ No modules.
 | Name | Type |
 |------|------|
 | [azurerm_dns_cname_record.static_site_cname_record](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dns_cname_record) | resource |
+| [azurerm_dns_zone.tensio_zone](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dns_zone) | resource |
 | [azurerm_resource_group_template_deployment.static_site_appsettings](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group_template_deployment) | resource |
 | [azurerm_static_site.static_site](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/static_site) | resource |
 | [azurerm_static_site_custom_domain.static_site_custom_domain](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/static_site_custom_domain) | resource |
