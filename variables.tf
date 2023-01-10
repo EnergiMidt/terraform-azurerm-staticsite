@@ -120,4 +120,5 @@ variable "custom_domain_name" {
     name      = string
     zone_name = string
   })
+  default = null
 }
