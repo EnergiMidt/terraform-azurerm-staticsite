@@ -16,7 +16,7 @@ resource "azurerm_static_site" "static_site" {
 
     content {
       type         = var.identity.type
-      identity_ids = lower(var.identity.type) == "userassigned" ? var.identity.managed_identities : null
+      identity_ids = lower(var.identity.type) == "userassigned" ? var.identity.identity_ids : null
     }
   }
 
@@ -54,7 +54,7 @@ resource "azurerm_static_site_custom_domain" "static_site_custom_domain" {
   validation_type = "cname-delegation"
 }
 
-# App settings for static app is not supported. 
+# App settings for static app is not supported.
 # https://github.com/hashicorp/terraform-provider-azurerm/issues/13451
 resource "azurerm_resource_group_template_deployment" "static_site_appsettings" {
   deployment_mode     = "Incremental"
