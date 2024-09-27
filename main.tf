@@ -51,7 +51,11 @@ resource "azurerm_static_site_custom_domain" "static_site_custom_domain" {
   count           = var.custom_domain_name == null ? 0 : 1
   static_site_id  = azurerm_static_site.static_site.id
   domain_name     = "${var.custom_domain_name.name}.${var.custom_domain_name.zone_name}"
-  validation_type = "cname-delegation"
+  validation_type = coalesce(var.custom_domain_name.validation_type, "cname-delegation")
+
+  lifecycle {
+    ignore_changes = [validation_token]
+  }
 }
 
 # App settings for static app is not supported. 

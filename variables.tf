@@ -113,12 +113,14 @@ variable "custom_domain_name" {
   description = <<EOT
   (Optional) A custom domain name for the static site. Example:
 
-  name      = "ferdigmelding"
-  zone_name = "tensio.no"
+  name            = "ferdigmelding"
+  zone_name       = "tensio.no"
+  validation_type = "cname-delegation"
   EOT
   type = object({
-    name      = string
-    zone_name = string
+    name            = string
+    zone_name       = string
+    validation_type = string
   })
   default = null
 }
