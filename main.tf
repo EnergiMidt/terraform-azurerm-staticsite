@@ -48,17 +48,13 @@ resource "azurerm_static_web_app_custom_domain" "static_site_custom_domain" {
     azurerm_dns_cname_record.static_site_cname_record
   ]
 
-  count             = var.custom_domain_name == null ? 0 : 1
-  static_web_app_id = azurerm_static_web_app.static_site.id
-  domain_name       = "${var.custom_domain_name.name}.${var.custom_domain_name.zone_name}"
-  validation_type   = "cname-delegation"
+  count              = var.custom_domain_name == null ? 0 : 1
+  static_web_app_id  = azurerm_static_web_app.static_site.id
+  domain_name        = "${var.custom_domain_name.name}.${var.custom_domain_name.zone_name}"
+  validation_type    = coalesce(var.custom_domain_name.validation_type, "cname-delegation")
 
   lifecycle {
-    ignore_changes = [
-      # azurerm acts weird when importing this and cannot reuse the existing value here.
-      # Adding this to avoid destroying and recreating an existing resource if imported.
-      validation_type
-    ]
+    ignore_changes = [validation_token]
   }
 }
 
