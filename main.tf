@@ -3,7 +3,7 @@ locals {
   location = var.override_location == null ? var.resource_group.location : var.override_location
 }
 
-resource "azurerm_static_site" "static_site" {
+resource "azurerm_static_web_app" "static_site" {
   name                = local.name
   location            = local.location
   resource_group_name = var.resource_group.name
@@ -16,7 +16,7 @@ resource "azurerm_static_site" "static_site" {
 
     content {
       type         = var.identity.type
-      identity_ids = lower(var.identity.type) == "userassigned" ? var.identity.managed_identities : null
+      identity_ids = lower(var.identity.type) == "userassigned" ? var.identity.identity_ids : null
     }
   }
 
@@ -40,25 +40,25 @@ resource "azurerm_dns_cname_record" "static_site_cname_record" {
   zone_name           = var.custom_domain_name.zone_name
   resource_group_name = var.resource_group.name
   ttl                 = 300
-  record              = azurerm_static_site.static_site.default_host_name
+  record              = azurerm_static_web_app.static_site.default_host_name
 }
 
-resource "azurerm_static_site_custom_domain" "static_site_custom_domain" {
+resource "azurerm_static_web_app_custom_domain" "static_site_custom_domain" {
   depends_on = [
     azurerm_dns_cname_record.static_site_cname_record
   ]
 
-  count           = var.custom_domain_name == null ? 0 : 1
-  static_site_id  = azurerm_static_site.static_site.id
-  domain_name     = "${var.custom_domain_name.name}.${var.custom_domain_name.zone_name}"
-  validation_type = coalesce(var.custom_domain_name.validation_type, "cname-delegation")
+  count              = var.custom_domain_name == null ? 0 : 1
+  static_web_app_id  = azurerm_static_web_app.static_site.id
+  domain_name        = "${var.custom_domain_name.name}.${var.custom_domain_name.zone_name}"
+  validation_type    = coalesce(var.custom_domain_name.validation_type, "cname-delegation")
 
   lifecycle {
     ignore_changes = [validation_token]
   }
 }
 
-# App settings for static app is not supported. 
+# App settings for static app is not supported.
 # https://github.com/hashicorp/terraform-provider-azurerm/issues/13451
 resource "azurerm_resource_group_template_deployment" "static_site_appsettings" {
   deployment_mode     = "Incremental"
@@ -90,7 +90,7 @@ locals {
       {
         type       = "Microsoft.Web/staticSites/config"
         apiVersion = "2020-10-01"
-        name       = "${azurerm_static_site.static_site.name}/appsettings"
+        name       = "${azurerm_static_web_app.static_site.name}/appsettings"
         kind       = "string"
         properties = var.app_settings
       }
