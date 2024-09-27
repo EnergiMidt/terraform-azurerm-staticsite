@@ -35,7 +35,7 @@ resource "azurerm_dns_cname_record" "static_site_cname_record" {
     azurerm_dns_zone.tensio_zone
   ]
 
-  count               = var.custom_domain_name == null ? 0 : 1
+  count               = var.custom_domain_name != null && !var.dns_validation_with_txt_record ? 1 : 0
   name                = var.custom_domain_name.name
   zone_name           = var.custom_domain_name.zone_name
   resource_group_name = var.resource_group.name
@@ -43,12 +43,27 @@ resource "azurerm_dns_cname_record" "static_site_cname_record" {
   record              = azurerm_static_site.static_site.default_host_name
 }
 
-resource "azurerm_static_site_custom_domain" "static_site_custom_domain" {
+resource "azurerm_dns_txt_record" "static_site_txt_record" {
+  depends_on = [
+    azurerm_dns_zone.tensio_zone
+  ]
+
+  count               = var.custom_domain_name != null && var.dns_validation_with_txt_record ? 1 : 0
+  name                = "_dnsauth.${var.custom_domain_name.name}"
+  zone_name           = var.custom_domain_name.zone_name
+  resource_group_name = var.resource_group.name
+  ttl                 = 300
+  record {
+    value = azurerm_static_site_custom_domain.static_site_custom_domain_txt[1].validation_token
+  }
+}
+
+resource "azurerm_static_site_custom_domain" "static_site_custom_domain_cname" {
   depends_on = [
     azurerm_dns_cname_record.static_site_cname_record
   ]
 
-  count           = var.custom_domain_name == null ? 0 : 1
+  count           = var.custom_domain_name != null && !var.dns_validation_with_txt_record ? 1 : 0
   static_site_id  = azurerm_static_site.static_site.id
   domain_name     = "${var.custom_domain_name.name}.${var.custom_domain_name.zone_name}"
   validation_type = coalesce(var.custom_domain_name.validation_type, "cname-delegation")
@@ -56,6 +71,13 @@ resource "azurerm_static_site_custom_domain" "static_site_custom_domain" {
   lifecycle {
     ignore_changes = [validation_token]
   }
+}
+
+resource "azurerm_static_site_custom_domain" "static_site_custom_domain_txt" {
+  count           = var.custom_domain_name != null && var.dns_validation_with_txt_record ? 1 : 0
+  static_site_id  = azurerm_static_site.static_site.id
+  domain_name     = "${var.custom_domain_name.name}.${var.custom_domain_name.zone_name}"
+  validation_type = "dns-txt-token"
 }
 
 # App settings for static app is not supported. 

@@ -124,3 +124,9 @@ variable "custom_domain_name" {
   })
   default = null
 }
+
+variable "dns_validation_with_txt_record" {
+  description = "(Optional) If true, uses validation type 'dns-txt-token', instead of 'cname-delegation'."
+  default     = false
+  type        = bool
+}
