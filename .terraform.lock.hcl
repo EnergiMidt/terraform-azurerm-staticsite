@@ -2,22 +2,23 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/hashicorp/azurerm" {
-  version     = "3.37.0"
-  constraints = ">= 3.33.0, < 4.0.0"
+  version     = "4.27.0"
+  constraints = ">= 4.22.0, < 5.0.0"
   hashes = [
-    "h1:6vjk/NbxTHFV6OIMCF6dz57x2C1WzQVKgjPGu/Vae3o=",
-    "h1:yBkhudX4uTCZAUU85SVr10C40bVlK6kAVGU6IiTUWSU=",
-    "zh:2a7bda0b7679d1c791c762103a22f333b544b6e6776c4177f33bafc9cc28c919",
-    "zh:49ff49670c349f918017315838a43ece09bf6f1bf7721b992f1cadbceb273c62",
-    "zh:55c9346d03380585e17616b79c4233b726d6fb9efa1921848834fc881e5d7d54",
-    "zh:5ab117b56a4236ea29926e9d95c27d7bf8ae6706d0fffb76c0b1bfe67bf3a78e",
-    "zh:5cfc086d5d56308edb3e68aac5f8a448ddc6e56541be7b152ae886399e9b2c69",
-    "zh:7a8929ed38152aac6652711f32193c8582bc996f8fa73879a3ac7a9bf88d2460",
-    "zh:895294e90a37f719975fcd2269b95e973147e48ec0ebb9c2fe472bc93531b49c",
-    "zh:8baa5e2b6e5b02df5b45d253a3aea93f22619920cf9577290d682b59a6d5664b",
-    "zh:b146a732c7909238c10d216b92a35092be4f72a0509a4c6742cc3245bf3b3bf3",
-    "zh:cedef898ccd512a6519eae3dff7eb0d581d2c3dad8e0001992da16ad1d7fded8",
-    "zh:f016d9ba94ea88476883b4d63cff88a0225974e0a8b8c3e8555f73c5de6f7119",
+    "h1:/siiXbMpe2dyybB+a+3sglgC0fqgcwTIbpQbOTg6hnw=",
+    "h1:2fs47aLDaEm93ANXXVRdTjlbUBmFBZRsFjyshKoPE3o=",
+    "h1:nvIa9Z9GdI3/J7U4oMR2w/h/JZ66M1ozUPh/jHn5pXU=",
+    "zh:0c69edea1995bd3bd9e61980757169c35bf22281b660b5c755b6cb13d08d29d2",
+    "zh:25b86bf7b9678371d8573983954c571696f3e64a3967133be3b835da36307106",
+    "zh:49921cff4f26a49bafada60cd07dabb52c5eb35231059ed928a4f4722e269c82",
+    "zh:4b986166531f9fd1289f01d8220519443e74888a21da512c1b841b006dad6215",
+    "zh:53fb65b2ca4df637f03e4748a100a7d7fc77249e307c03e294d6259cec0310f6",
+    "zh:5c0d021a387ca4e2a5a01da009746a08c45f08e971c10d9bda54539d7264d671",
+    "zh:600043f2b20dc5a45275e43f175c19fe8b6e8e9557a0c884aef018f1f63de90e",
+    "zh:a0284f6f38912f67bb4cb7829fda3fa75be81fea6a9b21119965c2a839430092",
+    "zh:a7ac0576e2069ef77557042c6b5157ded364fbd355b2f9bf7f5441622424086e",
+    "zh:c5db0bcafe986868e28cc6225b68b2d1cf4bf631939d260ca845f17a9aa1677d",
+    "zh:ce620c0eb71b1fdd925828b30cf232a869abccf1c459180f2f991c4166315251",
     "zh:f569b65999264a9416862bca5cd2a6177d94ccb0424f3a4ef424428912b9cb3c",
   ]
 }

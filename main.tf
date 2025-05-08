@@ -28,6 +28,8 @@ resource "azurerm_dns_zone" "tensio_zone" {
   count               = var.custom_domain_name == null ? 0 : 1
   name                = var.custom_domain_name.zone_name
   resource_group_name = var.resource_group.name
+
+  tags = var.tags
 }
 
 resource "azurerm_dns_cname_record" "static_site_cname_record" {
@@ -52,10 +54,6 @@ resource "azurerm_static_site_custom_domain" "static_site_custom_domain" {
   static_site_id  = azurerm_static_site.static_site.id
   domain_name     = "${var.custom_domain_name.name}.${var.custom_domain_name.zone_name}"
   validation_type = coalesce(var.custom_domain_name.validation_type, "cname-delegation")
-
-  lifecycle {
-    ignore_changes = [validation_token]
-  }
 }
 
 # App settings for static app is not supported. 
